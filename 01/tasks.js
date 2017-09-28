@@ -11,12 +11,7 @@ function getMinMax(string) {
     min: Math.min(...numbers),
     max: Math.max(...numbers)
   };
-
-  console.log(min);
-  console.log(max);
 }
-
-getMinMax('1 и 6.45, -2, но 8, а затем 15, то есть 2.7 и -1028');
 
 /* ============================================= */
 
@@ -72,15 +67,15 @@ function printNumbers(max, cols) {
   let [col, row, result] = [0, 0, ''];
 
   while (row < linesNumber && col <= max) {
-			const item = linesNumber * col + row;
+    const item = linesNumber * col + row;
 
-		  result += (`${(item < 10 ? ' ' : '')}${item}${((cols - col) === 1 || col === max) ? '' : ' '}`);
-			col++;
-			if (col > cols - 1) {
-					row++;
-					col = 0;
-					result += ( row === linesNumber ? '' : '\n');
-			}
+    result += (`${(item < 10 ? ' ' : '')}${item}${((cols - col) === 1 || col === max) ? '' : ' '}`);
+    col++;
+    if (col > cols - 1) {
+      row++;
+      col = 0;
+      result += (row === linesNumber ? '' : '\n');
+    }
   }
   return result;
 }
@@ -93,7 +88,9 @@ function printNumbers(max, cols) {
  * @return {string}
  */
 function rle(input) {
+  const reg = /(.)\1*/g;
 
+  return input.match(reg).map(repeats => (repeats.length > 1 ? repeats[0] + repeats.length : repeats[0])).join('');
 }
 
 module.exports = {
