@@ -6,17 +6,30 @@
  */
 function getMinMax(string) {
 
+	const numbers = string.split(' ').map(item => parseFloat(item)).filter(item =>  !isNaN(item));
+
+	return {
+		min: Math.min(...numbers),
+		max: Math.max(...numbers)
+	};
+
+	console.log(min);
+	console.log(max);
+
 }
+
+getMinMax('1 и 6.45, -2, но 8, а затем 15, то есть 2.7 и -1028');
 
 /* ============================================= */
 
 /**
- * Напишите рекурсивную функцию вычисления чисел Фибоначчи
+ * Напишите рекурсивную функцию вычисления чисел Фибоначчиnpm i
  * @param {number} x номер числа
  * @return {number} число под номером х
  */
 function fibonacciSimple(x) {
-  return x;
+	const cache = {}
+	return x <= 1 ? x : fibonacciSimple(x - 1) + fibonacciSimple(x - 2);
 }
 
 /* ============================================= */
@@ -28,7 +41,7 @@ function fibonacciSimple(x) {
  * @return {number} число под номером х
  */
 function fibonacciWithCache(x) {
-  return x;
+	return x;
 }
 
 /* ============================================= */
@@ -64,9 +77,9 @@ function rle(input) {
 }
 
 module.exports = {
-  getMinMax,
-  rle,
-  printNumbers,
-  fibonacciSimple,
-  fibonacciWithCache
+	getMinMax,
+	rle,
+	printNumbers,
+	fibonacciSimple,
+	fibonacciWithCache
 };
