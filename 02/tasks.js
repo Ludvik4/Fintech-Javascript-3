@@ -3,11 +3,11 @@
  * Доп. задание: предложите несколько вариантов решения.
  */
 function timer(logger = console.log) {
-	for (var i = 0; i < 10; i++) {
-		setTimeout(i => {
-			logger(i);
-		}, 100, i);
-	}
+  for (let i = 0; i < 10; i++) {
+    setTimeout(item => {
+      logger(item);
+    }, 100, i);
+  }
 }
 
 /*= ============================================ */
@@ -22,7 +22,6 @@ function timer(logger = console.log) {
 const customBind = (func, context, ...args) => (...bindArgs) => func.apply(context, args.concat(bindArgs));
 
 
-
 /*= ============================================ */
 
 /**
@@ -33,12 +32,11 @@ const customBind = (func, context, ...args) => (...bindArgs) => func.apply(conte
  * sum :: void -> Number
  */
 const sum = x => {
-	if (x != undefined) {
-		return y => (y != undefined ? sum(x + y) : x)
-	} else {
-		return 0
-	}
-}
+  if (x !== undefined) {
+    return y => (y !== undefined ? sum(x + y) : x);
+  }
+  return 0;
+};
 
 /*= ============================================ */
 
@@ -49,8 +47,9 @@ const sum = x => {
  * @return {boolean}
  */
 function anagram(first, second) {
-	sorting = str => [...str].sort().join();
-	return sorting(first) === sorting(second)
+  const sorting = str => [...str].sort().join();
+
+  return sorting(first) === sorting(second);
 }
 
 /*= ============================================ */
@@ -62,12 +61,14 @@ function anagram(first, second) {
  * @return {Array<number>} массив уникальных значений, отсортированный по возрастанию
  */
 function getUnique(arr) {
-	var obj = {};
-	for (var i = 0; i < arr.length; i++) {
-		var str = arr[i];
-		obj[str] = true;
-	}
-	return  Object.keys(obj).map(item => parseFloat(item));
+  const obj = {};
+
+  for (let i = 0; i < arr.length; i++) {
+    const str = arr[i];
+
+    obj[str] = true;
+  }
+  return Object.keys(obj).map(item => parseFloat(item));
 }
 /**
  * Найдите пересечение двух массивов
@@ -76,23 +77,23 @@ function getUnique(arr) {
  * @return {Array<number>} массив уникальных значений, отсортированный по возрастанию
  */
 function getIntersection(first, second) {
-	let obj = {};
+  const obj = {};
 
-	first.forEach(firstItem => {
-		obj[firstItem] = true;
-	});
+  first.forEach(firstItem => {
+    obj[firstItem] = true;
+  });
 
-	let result = [];
+  const result = [];
 
-	second.forEach(secondItem => {
-		if (secondItem in obj) {
-			result.push(secondItem);
-		}
-	});
+  second.forEach(secondItem => {
+    if (secondItem in obj) {
+      result.push(secondItem);
+    }
+  });
 
-	return result.sort(compareNumbers = (a, b) => {
-		return a - b;
-	})
+  const compareNumbers = (a, b) => a - b;
+
+  return result.sort(compareNumbers);
 }
 
 /* ============================================= */
@@ -111,17 +112,19 @@ function getIntersection(first, second) {
  * @return {boolean}
  */
 function isIsomorphic(left, right) {
-	const leftArray = [...left];
-	const rightArray = [...right];
-	if (leftArray.length === rightArray.length) {
-		let counter = 0;
-		for (let i = 0; i < leftArray.length; i++) {
-			if (leftArray[i] != rightArray[i]) {
-				counter ++
-			}
-		}
-		return counter <= 1;
-	}
+  const leftArray = [...left];
+  const rightArray = [...right];
+
+  if (leftArray.length === rightArray.length) {
+    let counter = 0;
+
+    for (let i = 0; i < leftArray.length; i += 1) {
+      if (leftArray[i] !== rightArray[i]) {
+        counter += 1;
+      }
+    }
+    return counter <= 1;
+  }
 }
 
 module.exports = {
