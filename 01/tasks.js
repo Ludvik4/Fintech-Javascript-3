@@ -5,7 +5,12 @@
  * '1 и 6.45, -2, но 8, а затем 15, то есть 2.7 и -1028' => { min: -1028, max: 15 }
  */
 function getMinMax(string) {
+  const numbers = string.split(' ').map(item => parseFloat(item)).filter(item => !isNaN(item));
 
+  return {
+    min: Math.min(...numbers),
+    max: Math.max(...numbers)
+  };
 }
 
 /* ============================================= */
@@ -16,7 +21,7 @@ function getMinMax(string) {
  * @return {number} число под номером х
  */
 function fibonacciSimple(x) {
-  return x;
+  return x <= 1 ? x : fibonacciSimple(x - 1) + fibonacciSimple(x - 2);
 }
 
 /* ============================================= */
@@ -27,8 +32,14 @@ function fibonacciSimple(x) {
  * @param {number} x номер числа
  * @return {number} число под номером х
  */
+
+
 function fibonacciWithCache(x) {
-  return x;
+  const cache = [0, 1];
+
+  const result = (x >= cache.length) ? (cache[x] = fibonacciSimple(x)) : cache[x];
+
+  return result;
 }
 
 /* ============================================= */
@@ -44,12 +55,29 @@ function fibonacciWithCache(x) {
  *  1  5  9
  *  2  6 10
  *  3  7 11
+ *  ________
+ *  0  2  4
+ *  1  3  5
  * @param  {number} max  максимальное число (до 99)
  * @param  {number} cols количество столбцов
  * @return {string}
  */
 function printNumbers(max, cols) {
+  const linesNumber = Math.ceil(max / cols);
+  let [col, row, result] = [0, 0, ''];
 
+  while (row < linesNumber && col <= max) {
+    const item = linesNumber * col + row;
+
+    result += (`${(item < 10 ? ' ' : '')}${item}${((cols - col) === 1 || col === max) ? '' : ' '}`);
+    col++;
+    if (col > cols - 1) {
+      row++;
+      col = 0;
+      result += (row === linesNumber ? '' : '\n');
+    }
+  }
+  return result;
 }
 
 /* ============================================= */
@@ -60,7 +88,9 @@ function printNumbers(max, cols) {
  * @return {string}
  */
 function rle(input) {
+  const reg = /(.)\1*/g;
 
+  return input.match(reg).map(repeats => (repeats.length > 1 ? repeats[0] + repeats.length : repeats[0])).join('');
 }
 
 module.exports = {
