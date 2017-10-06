@@ -3,10 +3,10 @@
  * Доп. задание: предложите несколько вариантов решения.
  */
 function timer(logger = console.log) {
-  for (var i = 0; i < 10; i++) {
-    setTimeout(() => {
-      logger(i);
-    }, 100);
+  for (let i = 0; i < 10; i++) {
+    setTimeout(item => {
+      logger(item);
+    }, 100, i);
   }
 }
 
@@ -19,9 +19,8 @@ function timer(logger = console.log) {
  * @param {Array<any>} args массив аргументов
  * @return {Function} функция с нужным контекстом
  */
-function customBind(func, context, ...args) {
+const customBind = (func, context, ...args) => (...bindArgs) => func.apply(context, args.concat(bindArgs));
 
-}
 
 /*= ============================================ */
 
@@ -32,9 +31,12 @@ function customBind(func, context, ...args) {
  * sum :: Number -> sum
  * sum :: void -> Number
  */
-function sum(x) {
+const sum = x => {
+  if (x !== undefined) {
+    return y => (y !== undefined ? sum(x + y) : x);
+  }
   return 0;
-}
+};
 
 /*= ============================================ */
 
@@ -45,7 +47,9 @@ function sum(x) {
  * @return {boolean}
  */
 function anagram(first, second) {
-  return false;
+  const sorting = str => [...str].sort().join();
+
+  return sorting(first) === sorting(second);
 }
 
 /*= ============================================ */
@@ -57,9 +61,15 @@ function anagram(first, second) {
  * @return {Array<number>} массив уникальных значений, отсортированный по возрастанию
  */
 function getUnique(arr) {
-  return [];
-}
+  const obj = {};
 
+  for (let i = 0; i < arr.length; i++) {
+    const str = arr[i];
+
+    obj[str] = true;
+  }
+  return Object.keys(obj).map(item => parseFloat(item));
+}
 /**
  * Найдите пересечение двух массивов
  * [1, 3, 5, 7, 9] и [1, 2, 3, 4] → [1, 3]
@@ -67,7 +77,23 @@ function getUnique(arr) {
  * @return {Array<number>} массив уникальных значений, отсортированный по возрастанию
  */
 function getIntersection(first, second) {
-  return [];
+  const obj = {};
+
+  first.forEach(firstItem => {
+    obj[firstItem] = true;
+  });
+
+  const result = [];
+
+  second.forEach(secondItem => {
+    if (secondItem in obj) {
+      result.push(secondItem);
+    }
+  });
+
+  const compareNumbers = (a, b) => a - b;
+
+  return result.sort(compareNumbers);
 }
 
 /* ============================================= */
@@ -86,7 +112,19 @@ function getIntersection(first, second) {
  * @return {boolean}
  */
 function isIsomorphic(left, right) {
+  const leftArray = [...left];
+  const rightArray = [...right];
 
+  if (leftArray.length === rightArray.length) {
+    let counter = 0;
+
+    for (let i = 0; i < leftArray.length; i += 1) {
+      if (leftArray[i] !== rightArray[i]) {
+        counter += 1;
+      }
+    }
+    return counter <= 1;
+  }
 }
 
 module.exports = {
